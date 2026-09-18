@@ -8,6 +8,7 @@ pipeline {
         AWS_REGION = 'ap-south-1'
         ECR_REPO = 'public.ecr.aws/m9y7o3u0/sachin-repo'
         TAG = "${BUILD_NUMBER}"
+        APP_NAME = 'apache-app'
     }
 
     stages {
@@ -30,7 +31,7 @@ pipeline {
         stage('Docker Build') {
             steps {
                 sh '''
-                    docker build -t ${ECR_REPO}:${TAG} .
+                    docker build -t ${ECR_REPO}/${APP_NAME}:${TAG} .
                 '''
             }
         }
@@ -52,7 +53,7 @@ pipeline {
         stage('Push Image') {
             steps {
                 sh '''
-                    docker push ${ECR_REPO}:${TAG}
+                    docker push ${ECR_REPO}/${APP_NAME}:${TAG}
                 '''
             }
         }
@@ -61,7 +62,7 @@ pipeline {
     post {
         success {
             echo "CI completed successfully."
-            echo "Image: ${ECR_REPO}:${TAG}"
+            echo "Image: ${ECR_REPO}/${APP_NAME}:${TAG}"
         }
 
         failure {
