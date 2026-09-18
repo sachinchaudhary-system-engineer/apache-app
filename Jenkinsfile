@@ -7,7 +7,7 @@ pipeline {
     environment {
         AWS_REGION = 'ap-south-1'
         ECR_REPO = 'public.ecr.aws/m9y7o3u0/sachin-repo'
-        TAG = "${BUILD_NUMBER}"
+        TAG = "10"
     }
 
     stages {
